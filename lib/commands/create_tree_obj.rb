@@ -27,9 +27,11 @@ module Syenite
             dir.each do
                 |item|
                 if File.directory? item
+                    next if in_project? item, true
                     sha = generate_tree_obj File.join path, item
                     tree << "tree #{ sha }"
                 else
+                    next if in_project? item
                     sha = generate_file_obj item
                     tree << "blob #{ sha }"
                 end
